@@ -97,14 +97,8 @@ Use the onGenerateDragPreview API from pragmatic drag and drop.
 Built into the PD&D draggable API and it allows you to use and style a custom drag preview.
 One drawback was that the documentation is not easy to find as the links in Atlassian docs are largely broken, and the search functionality isn't great, even if you know the names of the api.
 
-NOTES
+**NOTES**
 
-- BUG Images do not swap correctly on repeated drag and swaps
-- There is an issue with the exchangeImages function in that it does not handle the Front Page.
-
-  - The function currently finds the index within the page and uses that as a reference, but if there are different numbers of images on each page I see this causing an issue.
-  - Add jest and test the logic fully to fix this.
-
-- Once that logic works correctly there are a couple of animations which remain to be added
+- Drag & Swap logic works correctly, now there are a couple of animations which remain to be added
   - On drag start
   - On drop / swap

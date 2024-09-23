@@ -86,7 +86,6 @@ export function DraggablePhoto({
           const SelfImage = self.data.imageSrc as string;
           const SourceImage = source.data.imageSrc as string;
 
-          console.log("photoBookData", photoBookData);
           const updatedPhotoBookData = swapImagePositions(
             photoBookData,
             SelfImage,
@@ -97,7 +96,7 @@ export function DraggablePhoto({
         },
       })
     );
-  }, []);
+  }, [image, photoBookData, setPhotoBookData]);
 
   return (
     <>
