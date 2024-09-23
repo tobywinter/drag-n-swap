@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Actions from "./actions";
 import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
@@ -52,12 +52,26 @@ export interface PrintPageProps {
   data: DataEntry[];
 }
 
+const Photo = styled.img<{
+  dragging: boolean;
+}>`
+  opacity: 1;
+
+  /* Styles when dragging */
+  ${(props) =>
+    props.dragging &&
+    `
+    transition: opacity 0.8s;
+    opacity: 0.5;
+  `}
+`;
 interface PhotoProps {
   image: string;
   alt?: string;
 }
-function Photo({ image, alt }: PhotoProps) {
+function DraggablePhoto({ image, alt }: PhotoProps) {
   const ref = useRef(null);
+  const [dragging, setDragging] = useState<boolean>(false);
 
   useEffect(() => {
     const el = ref.current;
@@ -65,10 +79,12 @@ function Photo({ image, alt }: PhotoProps) {
 
     return draggable({
       element: el,
+      onDragStart: () => setDragging(true),
+      onDrop: () => setDragging(false),
     });
   }, []);
 
-  return <img src={image} alt="" ref={ref} />;
+  return <Photo dragging={dragging} src={image} alt="" ref={ref} />;
 }
 
 export default function PrintPage({ data }: PrintPageProps) {
@@ -86,7 +102,7 @@ export default function PrintPage({ data }: PrintPageProps) {
                 {entry.images.map((image) => {
                   return (
                     <PrintPhoto key={image}>
-                      <Photo image={image} />
+                      <DraggablePhoto image={image} />
                     </PrintPhoto>
                   );
                 })}
