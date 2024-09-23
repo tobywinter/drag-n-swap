@@ -53,3 +53,22 @@ Pragmatic drag and drop built by atlassian is built specifically to facilitate t
 
 **Low-level, customizable**
 Low level drag and drop package which will (hopefully) allow us to customise in any ways we're likely to need in terms of styling to the design.
+
+### Step 3 - Add tiny-invariant
+
+#### What?
+
+Added for the `invariant` function for run time assertions.
+
+#### Why?
+
+In a TypeScript project, using runtime checks like invariant might seem redundant at first glance, especially since TypeScript provides compile-time type checking. However, it is a useful additional tool to handle certain cases which aren't as clean to handle with TypeScript alone.
+
+**Handling Null or Undefined at Runtime**: Even with TypeScript's static type system, you can't always guarantee that something is defined at runtime, especially when dealing with refs, asynchronous data, or external sources (e.g., APIs, DOM elements).
+
+```
+const el = ref.current;
+invariant(el, 'Element should not be null.');
+```
+
+Here, TypeScript can infer that ref.current could potentially be null based on the type, but it cannot eliminate the possibility entirely at runtime. invariant ensures that this scenario is handled gracefully with an explicit error message.
