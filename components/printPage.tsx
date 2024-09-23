@@ -35,13 +35,13 @@ const PageLayout = styled.div`
   justify-content: space-between;
 `;
 
-export interface DataEntry {
+export interface PhotoBookPage {
   title: string;
   images: string[];
 }
 
 export interface PrintPageProps {
-  data: DataEntry[];
+  data: PhotoBookPage[];
 }
 
 export default function PrintPage({ data }: PrintPageProps) {

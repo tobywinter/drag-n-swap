@@ -1,5 +1,8 @@
 import Head from "next/head";
-import PrintPage, { DataEntry, PrintPageProps } from "../components/printPage";
+import PrintPage, {
+  PhotoBookPage,
+  PrintPageProps,
+} from "../components/printPage";
 import styled from "styled-components";
 import React from "react";
 
@@ -25,7 +28,7 @@ const PageHeader = styled.div`
   }
 `;
 
-const printData: DataEntry[] = [
+const printData: PhotoBookPage[] = [
   {
     title: "Front Print",
     images: [

@@ -8,13 +8,13 @@ import styled from "styled-components";
 import invariant from "tiny-invariant";
 
 const Photo = styled.img<{
-  dragging: boolean;
+  $dragging: boolean;
 }>`
   opacity: 1;
 
   /* Styles when dragging */
   ${(props) =>
-    props.dragging &&
+    props.$dragging &&
     `
       transition: opacity 0.8s;
       opacity: 0.5;
@@ -64,7 +64,7 @@ export function DraggablePhoto({ image, alt }: PhotoProps) {
 
   return (
     <>
-      <Photo dragging={dragging} src={image} alt="" ref={ref} />;
+      <Photo $dragging={dragging} src={image} alt="" ref={ref} />;
       {preview &&
         createPortal(<PhotoDragPreview src={image} alt="" />, preview)}
     </>

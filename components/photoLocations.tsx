@@ -4,7 +4,7 @@ import styled from "styled-components";
 import invariant from "tiny-invariant";
 
 const PrintPhoto = styled.div<{
-  isdraggedover: boolean;
+  $isDraggedOver: boolean;
 }>`
   width: calc(50% - 10px);
 
@@ -13,7 +13,7 @@ const PrintPhoto = styled.div<{
   }
 
   ${(props) =>
-    props.isdraggedover &&
+    props.$isDraggedOver &&
     `
       transition: opacity 0.8s;
       opacity: 0.5;
@@ -37,7 +37,7 @@ export function PhotoLocations({ children }: React.PropsWithChildren<{}>) {
   }, []);
 
   return (
-    <PrintPhoto isdraggedover={isDraggedOver} ref={ref}>
+    <PrintPhoto $isDraggedOver={isDraggedOver} ref={ref}>
       {children}
     </PrintPhoto>
   );

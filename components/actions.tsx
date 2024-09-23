@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { DataEntry } from "./printPage";
+import { PhotoBookPage } from "./printPage";
 
 const StyledActions = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const ButtonLayout = styled(Icon)``;
 const ButtonMenu = styled(Icon)``;
 
 export interface ActionProps {
-  data?: DataEntry[];
+  data?: PhotoBookPage[];
 }
 
 export default function Actions({ data }: ActionProps) {
