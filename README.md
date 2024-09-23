@@ -72,3 +72,27 @@ invariant(el, 'Element should not be null.');
 ```
 
 Here, TypeScript can infer that ref.current could potentially be null based on the type, but it cannot eliminate the possibility entirely at runtime. invariant ensures that this scenario is handled gracefully with an explicit error message.
+
+### Step 4 - Drag Preview
+
+#### What?
+
+Use the onGenerateDragPreview API from pragmatic drag and drop.
+<https://atlassian.design/components/pragmatic-drag-and-drop/core-package/adapters/element/drag-previews>
+
+```
+      onGenerateDragPreview: ({ nativeSetDragImage }) => {
+        setCustomNativeDragPreview({
+          getOffset: centerUnderPointer,
+          render({ container }) {
+            setPreview(container);
+          },
+          nativeSetDragImage,
+        });
+      },
+```
+
+#### Why?
+
+Built into the PD&D draggable API and it allows you to use and style a custom drag preview.
+One drawback was that the documentation is not easy to find as the links in Atlassian docs are largely broken, and the search functionality isn't great, even if you know the names of the api.
