@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Actions from "./actions";
-import { DraggablePhoto } from "./draggablePhoto";
-import { PhotoLocations } from "./photoLocations";
+import { DraggablePhoto } from "./dragAndDropPhoto";
+import DragDropContextWrapper from "./dragDropContext";
 
 const Wrapper = styled.div`
   width: 600px;
@@ -44,36 +44,46 @@ export interface PrintPageProps {
   data: PhotoBookPage[];
 }
 
+const PhotoContainer = styled.div<{}>`
+  width: calc(50% - 10px);
+
+  img {
+    max-width: 100%;
+  }
+`;
+
 export default function PrintPage({ data }: PrintPageProps) {
   const [photoBookData, setPhotoBookData] = useState(data);
 
   return (
     <>
-      <Wrapper>
-        {Object.values(photoBookData).map((entry, i) => {
-          return (
-            <PrintWrapper key={i}>
-              <Header>
-                <Title>{entry.title}</Title>
-                <Actions />
-              </Header>
-              <PageLayout>
-                {entry.images.map((image, index) => {
-                  return (
-                    <PhotoLocations key={`${entry.title}+${index}`}>
-                      <DraggablePhoto
-                        image={image}
-                        photoBookData={photoBookData}
-                        setPhotoBookData={setPhotoBookData}
-                      />
-                    </PhotoLocations>
-                  );
-                })}
-              </PageLayout>
-            </PrintWrapper>
-          );
-        })}
-      </Wrapper>
+      <DragDropContextWrapper>
+        <Wrapper>
+          {Object.values(photoBookData).map((entry, i) => {
+            return (
+              <PrintWrapper key={i}>
+                <Header>
+                  <Title>{entry.title}</Title>
+                  <Actions />
+                </Header>
+                <PageLayout>
+                  {entry.images.map((image, index) => {
+                    return (
+                      <PhotoContainer key={`${entry.title}+${index}`}>
+                        <DraggablePhoto
+                          image={image}
+                          photoBookData={photoBookData}
+                          setPhotoBookData={setPhotoBookData}
+                        />
+                      </PhotoContainer>
+                    );
+                  })}
+                </PageLayout>
+              </PrintWrapper>
+            );
+          })}
+        </Wrapper>
+      </DragDropContextWrapper>
     </>
   );
 }
