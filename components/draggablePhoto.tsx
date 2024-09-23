@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import {
+  draggable,
+  dropTargetForElements,
+} from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
 import { setCustomNativeDragPreview } from "@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview";
 import { centerUnderPointer } from "@atlaskit/pragmatic-drag-and-drop/element/center-under-pointer";
+import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 
 import styled from "styled-components";
 import invariant from "tiny-invariant";
+import { PhotoBookPage } from "./printPage";
+import { swapImagePositions } from "./utils/swapImagePositions";
 
 const Photo = styled.img<{
   $dragging: boolean;
@@ -30,9 +36,16 @@ const PhotoDragPreview = styled.img`
 
 interface PhotoProps {
   image: string;
+  photoBookData: PhotoBookPage[];
+  setPhotoBookData: (data: PhotoBookPage[]) => void;
   alt?: string;
 }
-export function DraggablePhoto({ image, alt }: PhotoProps) {
+export function DraggablePhoto({
+  image,
+  photoBookData,
+  setPhotoBookData,
+  alt,
+}: PhotoProps) {
   const ref = useRef(null);
   const [dragging, setDragging] = useState<boolean>(false);
   const [preview, setPreview] = useState<HTMLElement>();
@@ -41,30 +54,54 @@ export function DraggablePhoto({ image, alt }: PhotoProps) {
     const el = ref.current;
     invariant(el);
 
-    return draggable({
-      element: el,
-      onDragStart(): void {
-        setDragging(true);
-      },
-      onDrop(): void {
-        setDragging(false);
-        setPreview(null);
-      },
-      onGenerateDragPreview: ({ nativeSetDragImage }) => {
-        setCustomNativeDragPreview({
-          getOffset: centerUnderPointer,
-          render({ container }) {
-            setPreview(container);
-          },
-          nativeSetDragImage,
-        });
-      },
-    });
+    return combine(
+      draggable({
+        element: el,
+        getInitialData: () => ({ type: "image", imageSrc: image }),
+        onDragStart(): void {
+          console.log("onDragStart", { type: "image", imageSrc: image });
+          setDragging(true);
+        },
+        onDrop(): void {
+          setDragging(false);
+          setPreview(null);
+        },
+        onGenerateDragPreview: ({ nativeSetDragImage }) => {
+          setCustomNativeDragPreview({
+            getOffset: centerUnderPointer,
+            render({ container }) {
+              setPreview(container);
+            },
+            nativeSetDragImage,
+          });
+        },
+      }),
+      dropTargetForElements({
+        element: el,
+        getData: ({ input, element, source }) => {
+          const data = { type: "image", imageSrc: image };
+          return data;
+        },
+        onDrop: ({ location, source, self }) => {
+          const SelfImage = self.data.imageSrc as string;
+          const SourceImage = source.data.imageSrc as string;
+
+          console.log("photoBookData", photoBookData);
+          const updatedPhotoBookData = swapImagePositions(
+            photoBookData,
+            SelfImage,
+            SourceImage
+          );
+          setPhotoBookData(updatedPhotoBookData);
+          setDragging(false);
+        },
+      })
+    );
   }, []);
 
   return (
     <>
-      <Photo $dragging={dragging} src={image} alt="" ref={ref} />;
+      <Photo $dragging={dragging} src={image} alt="" ref={ref} />
       {preview &&
         createPortal(<PhotoDragPreview src={image} alt="" />, preview)}
     </>

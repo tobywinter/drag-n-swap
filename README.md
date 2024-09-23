@@ -66,9 +66,9 @@ In a TypeScript project, using runtime checks like invariant might seem redundan
 
 **Handling Null or Undefined at Runtime**: Even with TypeScript's static type system, you can't always guarantee that something is defined at runtime, especially when dealing with refs, asynchronous data, or external sources (e.g., APIs, DOM elements).
 
-```
+```typescript
 const el = ref.current;
-invariant(el, 'Element should not be null.');
+invariant(el, "Element should not be null.");
 ```
 
 Here, TypeScript can infer that ref.current could potentially be null based on the type, but it cannot eliminate the possibility entirely at runtime. invariant ensures that this scenario is handled gracefully with an explicit error message.
@@ -80,7 +80,7 @@ Here, TypeScript can infer that ref.current could potentially be null based on t
 Use the onGenerateDragPreview API from pragmatic drag and drop.
 <https://atlassian.design/components/pragmatic-drag-and-drop/core-package/adapters/element/drag-previews>
 
-```
+```typescript
       onGenerateDragPreview: ({ nativeSetDragImage }) => {
         setCustomNativeDragPreview({
           getOffset: centerUnderPointer,
@@ -96,3 +96,15 @@ Use the onGenerateDragPreview API from pragmatic drag and drop.
 
 Built into the PD&D draggable API and it allows you to use and style a custom drag preview.
 One drawback was that the documentation is not easy to find as the links in Atlassian docs are largely broken, and the search functionality isn't great, even if you know the names of the api.
+
+NOTES
+
+- BUG Images do not swap correctly on repeated drag and swaps
+- There is an issue with the exchangeImages function in that it does not handle the Front Page.
+
+  - The function currently finds the index within the page and uses that as a reference, but if there are different numbers of images on each page I see this causing an issue.
+  - Add jest and test the logic fully to fix this.
+
+- Once that logic works correctly there are a couple of animations which remain to be added
+  - On drag start
+  - On drop / swap

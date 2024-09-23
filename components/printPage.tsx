@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Actions from "./actions";
 import { DraggablePhoto } from "./draggablePhoto";
@@ -45,10 +45,12 @@ export interface PrintPageProps {
 }
 
 export default function PrintPage({ data }: PrintPageProps) {
+  const [photoBookData, setPhotoBookData] = useState(data);
+
   return (
     <>
       <Wrapper>
-        {Object.values(data).map((entry, i) => {
+        {Object.values(photoBookData).map((entry, i) => {
           return (
             <PrintWrapper key={i}>
               <Header>
@@ -56,10 +58,14 @@ export default function PrintPage({ data }: PrintPageProps) {
                 <Actions />
               </Header>
               <PageLayout>
-                {entry.images.map((image) => {
+                {entry.images.map((image, index) => {
                   return (
-                    <PhotoLocations key={image}>
-                      <DraggablePhoto image={image} />
+                    <PhotoLocations key={`${entry.title}+${index}`}>
+                      <DraggablePhoto
+                        image={image}
+                        photoBookData={photoBookData}
+                        setPhotoBookData={setPhotoBookData}
+                      />
                     </PhotoLocations>
                   );
                 })}
