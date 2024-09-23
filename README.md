@@ -108,6 +108,7 @@ Add framer for animations, use animate prescence / motion apis.
 Replaced Pragmatic Drag and Drop implimentation with [React-DND](https://react-dnd.github.io/react-dnd/docs/api/use-drag).
 
 **Why?**
+
 I couldnt' find any way to make use of Pragmatic Drag and Drop's to support mobile touch interactions. Very litte good documentation/examples or discussion of it, aside from various places that mention it should work out of the box, however it didn't. So i had to explore a number of different options.
 
 I was also struggling to get Pragmatic Drag and Drop to play well with Framer for the animations. So when looking for a solution I taking that into account.
@@ -120,9 +121,11 @@ However it didn't work with Mobile out of the box, it has two "Backends" neither
 ### Step 6 - Find Solution for Drag Preview
 
 **What?**
+
 Added a custom drag preview - `DragPreview`
 
 **Why?**
+
 Now that we're using React DND (as opposed to Pragmatic Drag and Drop, which had great support for drag previews), React DND's DragPreviewImage doesn't provide flexibilty for custom styling. Neccesitating a custom drag preview.
 
 ## What I would do if I had more time:
