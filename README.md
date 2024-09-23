@@ -32,21 +32,21 @@ This section will document the step by step process of building this feature It 
 
 ### Step 1 - Add TypeScript
 
-#### What?
+**What?**
 
 Switch from js to tsx and add packages to support using typscript to build this application.
 
-#### Why?
+**Why?**
 
 TypeScript is a superset of JavaScript that adds optional static typing and other features to improve the development experience. _TypeScript will help catch errors early and improve code maintainability._
 
 ### Step 2 - Choose package to facilitate drag and drop funcitonality
 
-#### What?
+**What?**
 
 Pragmatic Drag & Drop - <https://github.com/atlassian/pragmatic-drag-and-drop?tab=readme-ov-file>
 
-#### Why?
+**Why?**
 
 **Well-maintained and widely adopted**
 Pragmatic drag and drop built by atlassian is built specifically to facilitate the drag and drop mechanics used in Trello/Jira/Confluence boards, is well built, maintained and widely adopted.
@@ -56,11 +56,11 @@ Low level drag and drop package which will (hopefully) allow us to customise in 
 
 ### Step 3 - Add tiny-invariant
 
-#### What?
+**What?**
 
 Added for the `invariant` function for run time assertions.
 
-#### Why?
+**Why?**
 
 In a TypeScript project, using runtime checks like invariant might seem redundant at first glance, especially since TypeScript provides compile-time type checking. However, it is a useful additional tool to handle certain cases which aren't as clean to handle with TypeScript alone.
 
@@ -75,7 +75,7 @@ Here, TypeScript can infer that ref.current could potentially be null based on t
 
 ### Step 4 - Drag Preview
 
-#### What?
+**What?**
 
 Use the onGenerateDragPreview API from pragmatic drag and drop.
 <https://atlassian.design/components/pragmatic-drag-and-drop/core-package/adapters/element/drag-previews>
@@ -92,7 +92,7 @@ Use the onGenerateDragPreview API from pragmatic drag and drop.
       },
 ```
 
-#### Why?
+**Why?**
 
 Built into the PD&D draggable API and it allows you to use and style a custom drag preview.
 One drawback was that the documentation is not easy to find as the links in Atlassian docs are largely broken, and the search functionality isn't great, even if you know the names of the api.
