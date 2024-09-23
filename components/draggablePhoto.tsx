@@ -59,7 +59,6 @@ export function DraggablePhoto({
         element: el,
         getInitialData: () => ({ type: "image", imageSrc: image }),
         onDragStart(): void {
-          console.log("onDragStart", { type: "image", imageSrc: image });
           setDragging(true);
         },
         onDrop(): void {

@@ -5,13 +5,13 @@ export const swapImagePositions = (
   imageA: string,
   imageB: string
 ): PhotoBookPage[] => {
-  const newData = data.map((page) => ({
+  const pages = data.map((page) => ({
     ...page,
     images: [...page.images],
   }));
 
-  const pageA = newData.find((obj) => obj.images.includes(imageA));
-  const pageB = newData.find((obj) => obj.images.includes(imageB));
+  const pageA = findPage(pages, imageA);
+  const pageB = findPage(pages, imageB);
 
   if (pageA && pageB) {
     const indexA = pageA.images.indexOf(imageA);
@@ -23,5 +23,9 @@ export const swapImagePositions = (
     console.error("One or both images were not found.");
   }
 
-  return newData;
+  return pages;
 };
+
+function findPage(pages: { images: string[]; title: string }[], image: string) {
+  return pages.find((obj) => obj.images.includes(image));
+}
