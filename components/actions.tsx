@@ -1,4 +1,6 @@
+import React from "react";
 import styled from "styled-components";
+import { DataEntry } from "./printPage";
 
 const StyledActions = styled.div`
   display: flex;
@@ -20,7 +22,11 @@ const ButtonLayout = styled(Icon)``;
 
 const ButtonMenu = styled(Icon)``;
 
-export default function Actions({ data }) {
+export interface ActionProps {
+  data?: DataEntry[];
+}
+
+export default function Actions({ data }: ActionProps) {
   return (
     <>
       <StyledActions>

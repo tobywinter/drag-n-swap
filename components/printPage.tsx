@@ -1,5 +1,8 @@
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Actions from "./actions";
+import { draggable } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
+import invariant from "tiny-invariant";
 
 const Wrapper = styled.div`
   width: 600px;
@@ -40,7 +43,35 @@ const PrintPhoto = styled.div`
   }
 `;
 
-export default function PrintPage({ data }) {
+export interface DataEntry {
+  title: string;
+  images: string[];
+}
+
+export interface PrintPageProps {
+  data: DataEntry[];
+}
+
+interface PhotoProps {
+  image: string;
+  alt?: string;
+}
+function Photo({ image, alt }: PhotoProps) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    invariant(el);
+
+    return draggable({
+      element: el,
+    });
+  }, []);
+
+  return <img src={image} alt="" ref={ref} />;
+}
+
+export default function PrintPage({ data }: PrintPageProps) {
   return (
     <>
       <Wrapper>
@@ -55,7 +86,7 @@ export default function PrintPage({ data }) {
                 {entry.images.map((image) => {
                   return (
                     <PrintPhoto key={image}>
-                      <img src={image} alt="" />
+                      <Photo image={image} />
                     </PrintPhoto>
                   );
                 })}
