@@ -18,11 +18,11 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Notes
+## Tests
 
-Feel free to modify the source code in anyway that you see fit.
-
----
+```bash
+yarn test
+```
 
 ## Decision Log
 
@@ -136,5 +136,5 @@ Now that we're using React DND (as opposed to Pragmatic Drag and Drop, which had
 - Drag Preview on mobile / touch devices (in browser)
 - Spring animation when the Drag Preview appears.
 - Testing:
-  - Given the uncertain nature of the librarys I was using, spending time learning to test them at a unit level seemed like something I couldn't afford in the time. And it would also have been a difficult task which would have coupled the library and implimentation heavily in the tests.
+  - Given the uncertain nature of the librarys I was using, spending time learning to test them at a unit level seemed like something I couldn't afford in the time frame and the advice from the libararies themselves is that unit tests are brittle because the events they use under the hood can change as the browser APIs develop. And it would also have been a difficult task which would have coupled the library and implimentation heavily in the tests.
   - Ideally I would have set up a cypress test to test the drag preview at a higher level.
