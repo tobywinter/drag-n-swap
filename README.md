@@ -1,4 +1,4 @@
-# Popsa.com - React Frontend test skeleton
+# Popsa.com - React Frontend Drag and Swap Test
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -23,6 +23,21 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```bash
 yarn test
 ```
+
+## Implimentation
+
+## How it works
+
+This is a [Next.js](https://nextjs.org/) project with typescript and uses the following packages:
+
+- [<s>Pragmatic Drag and Drop</s>](https://atlassian.design/components/pragmatic-drag-and-drop) - <s>As the drag and drop library.</s> (Replaced with React DND)
+- [Framer Motion](https://www.framer.com/motion/) - For animations.
+- [Styled Components](https://styled-components.com/) - For styling components.
+- [React DND](https://react-dnd.github.io/react-dnd/about) - As an alternative drag and drop library to Pragmatic Drag and Drop.
+- [Tiny invariant](https://github.com/alexreardon/tiny-invariant) - For runtime checks.
+
+The app consists of a single page which is composed of four main components, `PrintPage`, `DragAndDropContextWrapper`, `DragAndDropPhoto`, and `DragPreview`. The `PrintPage` component wraps the `DragAndDropPhoto` component with the `DragAndDropContextWrapper`, provides the layout and PhotoBookPage data as with `useState`. The `DragAndDropPhoto` component is a photo which can be dragged and dropped, and handlers update the `PhotoBookPage` state when that occurs. It also renders a `DragPreview` of the dragged photo while dragging.
+Framer motion animations are contained within the `DragAndDropPhoto` component.
 
 ## Decision Log
 
